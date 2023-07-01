@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: CQRS-SERVICE
+  datasource:
+    url: jdbc:h2:~/cqrs
+    driver-class-name: org.h2.Driver
+    username:
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
+# my app update every second “token_entry set timestamp=? where processor_name=? and segment=? and owner=?”
+# it does’t stop still rerun again. I don't know what I can do to stop the update and my app become stable ::
+# Ans => The update token entry are completely normal, they prevent the token is stolen by an other possible instance.
+# The default for the tracking event processor, is to do this every second.
